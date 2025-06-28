@@ -103,9 +103,10 @@
   </div>
 
   <h2 style="text-align:center;">Bienvenido al mundo B.A.R.F.<br>Calculá la ración ideal para tu mascota</h2>
-
+  <h2 style="text-align:center;">Si tenés dudas podés consultar nuestra <a style="color:black" href="https://drive.google.com/file/d/1BU0p85-PYxT3UGPtNP30WM0537Fi3XEo/view?usp=sharing" target="_blank">GUÍA</a>
+  </h2>
   <div id="formulario">
-    <label for="tipo">Tipo de animal</label>
+    <label for="tipo">Edad</label>
     <select id="tipo" onchange="mostrarOpciones()">
       <option value="" disabled selected></option>
       <option value="adulto">Perro Adulto (Más de 1 año)</option>
@@ -116,20 +117,19 @@
       <label for="tamano">Tamaño</label>
       <select id="tamano">
         <option value="" disabled selected></option>
-        <option value="grande">Mediano / Grande / Gigante</option>
         <option value="chico">Chico / Mini (Hasta 10kg)</option>
+        <option value="grande">Mediano (10 a 25 kg)</option>
+        <option value="grande">Grande (25 a 40 kg)</option>
+        <option value="grande">Gigante (Más de 40 kg)</option>
+
       </select>
 
-      <label for="condicion">Condición o actividad</label>
+      <label for="condicion">Actividad física diaria</label>
       <select id="condicion">
         <option value="" disabled selected></option>
-        <option value="baja">Actividad física baja</option>
-        <option value="media">Actividad física media</option>
-        <option value="alta">Actividad física alta</option>
-        <option value="deportistas">Deportistas / Galgos / Trabajo</option>
-        <option value="senior">Senior (+9 años)</option>
-        <option value="obesidad">Con obesidad</option>
-        <option value="castrado">Castrado</option>
+        <option value="baja">Baja</option>
+        <option value="media">Media</option>
+        <option value="alta">Alta</option>
       </select>
     </div>
 
@@ -157,13 +157,12 @@
   </div>
 
   <div id="costosContainer" style="display: none; font-weight: bold; text-align: center; background-color: rgb(245, 236, 227); padding: 1rem; margin-top: 1rem; border-radius: 10px;">
-    <h3 id="costosContainerTit">Costos estimados</h3>
+    <h3 id="costosContainerTit">Gramos estimados</h3>
     <table style="width: 100%; border-collapse: collapse; font-weight: bold; text-align: center; background-color: #CBAEEA; color: black; border-radius: 10px; overflow: hidden; border: 1px solid white;">
       <thead>
         <tr>
           <th>Consumo</th>
           <th>Gramos</th>
-          <th>Costo Aproximado</th>
         </tr>
       </thead>
       <tbody id="tablaCostos">
@@ -202,18 +201,11 @@
             baja: [0.02, 0.02],
             media: [0.025, 0.025],
             alta: [0.03, 0.035],
-            deportistas: [0.03, 0.06],
-            senior: [0.02, 0.02],
-            obesidad: [0.02, 0.02],
-            castrado: [0.02, 0.025],
           },
           chico: {
             baja: [0.025, 0.03],
             media: [0.03, 0.04],
             alta: [0.045, 0.06],
-            senior: [0.025, 0.03],
-            obesidad: [0.025, 0.03],
-            castrado: [0.025, 0.04],
           },
         };
 
@@ -250,7 +242,6 @@
     }
 
     function actualizarTablaCostos(gramosDiarios) {
-      const precioPorKilo = 5200;
       const dias = [1, 7, 15, 30];
       const nombres = ["Diario (1 día)", "Semanal (7 días)", "Quincenal (15 días)", "Mensual (30 días)"];
       const tabla = document.getElementById("tablaCostos");
@@ -258,8 +249,7 @@
 
       dias.forEach((d, i) => {
         const gramosTotales = gramosDiarios * d;
-        const costo = (gramosTotales / 1000) * precioPorKilo;
-        const fila = `<tr><td>${nombres[i]}</td><td>${Math.round(gramosTotales)}</td><td>$${Math.round(costo)}</td></tr>`;
+        const fila = `<tr><td>${nombres[i]}</td><td>${Math.round(gramosTotales)}</td></tr>`;
         tabla.innerHTML += fila;
       });
     }

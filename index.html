@@ -180,7 +180,8 @@
 
     function calcularBARF() {
       const tipo = document.getElementById("tipo").value;
-      const peso = parseFloat(document.getElementById("peso").value);
+      const pesoInput = document.getElementById("peso").value.replace(",", ".");
+      const peso = parseFloat(pesoInput);
 
       if (isNaN(peso) || peso <= 0) {
         document.getElementById("resultado").innerText = "Ingresá un peso válido.";
